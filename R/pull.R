@@ -1,6 +1,6 @@
+#' Background function to pull data from Emsi Episteme.
 pullquery <- function(country, content, release, constraints, metrics) {
-    emsi_URL <- paste("http://episteme.economicmodeling.com/EMSI.", country, ".", content, "/",
-        release, sep = "")
+    emsi_URL <- paste("http://episteme.economicmodeling.com/EMSI.", country, ".", content, "/", release, sep = "")
     body <- list(metrics = metrics, constraints = constraints)
     r <- httr::POST(emsi_URL, body = body, encode = "json", httr::add_headers(EpistemeSettings()))
     r2 <- jsonlite::fromJSON(httr::content(r, "text"), simplifyDataFrame = TRUE)
@@ -8,13 +8,28 @@ pullquery <- function(country, content, release, constraints, metrics) {
     colnames(outputdata) <- r2$data$name
     rm(r)
     rm(r2)
-    outputdata[, colnames(outputdata) %in% names(constraints)] <- apply(outputdata[, colnames(outputdata) %in%
-        names(constraints)], 2, function(x) factor(x))
-    outputdata[, colnames(outputdata) %in% metrics$as] <- apply(outputdata[, colnames(outputdata) %in%
-        metrics$as], 2, function(x) as.numeric(x))
+    outputdata[, colnames(outputdata) %in% names(constraints)] <- apply(outputdata[, colnames(outputdata) %in% names(constraints)],
+        2, function(x) factor(x))
+    outputdata[, colnames(outputdata) %in% metrics$as] <- apply(outputdata[, colnames(outputdata) %in% metrics$as], 2, function(x) as.numeric(x))
     return(outputdata)
 }
 
+#' Pulls data from the Emsi Episteme API according to specified parameters and returns a prepared data frame for analysis.
+#'
+#' @param country The two-character country code.
+#' @param content The Emsi Episteme dataset description (e.g. "Occupation").
+#' @param release The release or version identifier for the dataset (e.g. "2016.1").
+#' @param constraints A list of dimensional constraints relevant to the dataset, each of which has been prepared through
+#' \code[\link[dimmaker]] or \code[\link[CoW]].
+#' @param metrics A set of metrics through which to quantify the data, prepared through \code[\link[metricmaker]].
+#' @return A data frame of dimensions and metrics, with dimensions classified as factors and metrics as doubles.
+#' @examples
+#' met1 <- data.frame(names=c("Jobs.2016","Jobs.2022"), as=c("Jobs.2016","Jobs.2022"))
+#' met1 <- metricmaker(met1)
+#' area1 <- data.frame(name=c("Great Britain", "Wales"), code=c("GB", "WAL"))
+#' areadim <- dimmaker("Area", area1)
+#' occdim <- dimmaker("Occupation", "asIdentity")
+#' datapull("UK","Occupation","2016.1",list(CoW("A"),areadim,occsdim),met1)
 datapull <- function(country, content, release, constraints, metrics) {
     if (ncol(metrics) == 2) {
         outputdata <- pullquery(country, content, release, constraints, metrics)

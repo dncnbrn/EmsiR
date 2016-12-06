@@ -4,11 +4,11 @@ Title: Emsi Episteme API from R
 Version: 0.1.0
 Authors@R: person("Duncan", "Brown", email = "duncan.brown@economicmodelling.co.uk",
   role = c("aut", "cre"))
-Description: A set of tools to allow for constructing and 
-    implementing queries for data from the labour market 
-    intelligence available through the Emsi 
+Description: A set of tools to allow for constructing and
+    implementing queries for data from the labour market
+    intelligence available through the Emsi
     Episteme API from within R.
-License: What license is it under?
+License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
@@ -18,3 +18,4 @@ Imports:
     purrr,
     jsonlite,
     magrittr
+RoxygenNote: 5.0.1
