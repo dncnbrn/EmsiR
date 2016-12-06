@@ -1,15 +1,19 @@
-mapper <- function(mapnames, mapcodes) {
-    map <- list()
-    for (i in 1:length(mapnames)) {
-        map[[i]] <- as.list(mapcodes[[i]])
-    }
-    names(map) <- mapnames
-    return(map)
+mapper <- function(mapping) {
+  map1 <- mapping %>%
+    dplyr::group_by(names) %>%
+    tidyr::nest()
+  map2 <- purrr::map(map1$data, "codes") %>% purrr::map(as.list)
+  names(map2) <- map1$names
+  return(map2)
 }
 
 dimmaker <- function(dimension, mapping) {
-  if(map == "asIdentity") {
-    list(dimensionName = dimension, asIdentity = TRUE)
+  if(is.atomic(mapping)) {
+    if(mapping == "asIdentity") {
+      list(dimensionName = dimension, asIdentity = TRUE)
+    } else {
+      print("No mapping or asIdentity proposed.")
+    }
   } else
   {
     list(dimensionName = dimension, map = mapper(mapping))
