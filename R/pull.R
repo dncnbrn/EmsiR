@@ -1,3 +1,4 @@
+#' @export
 pullquery <- function(country, content, release, constraints, metrics) {
     emsi_URL <- paste("http://episteme.economicmodeling.com/EMSI.", country, ".", content, "/", release, sep = "")
     body <- list(metrics = metrics, constraints = constraints)
