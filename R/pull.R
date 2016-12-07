@@ -1,4 +1,3 @@
-#' Background function to pull data from Emsi Episteme.
 pullquery <- function(country, content, release, constraints, metrics) {
     emsi_URL <- paste("http://episteme.economicmodeling.com/EMSI.", country, ".", content, "/", release, sep = "")
     body <- list(metrics = metrics, constraints = constraints)
@@ -14,14 +13,16 @@ pullquery <- function(country, content, release, constraints, metrics) {
     return(outputdata)
 }
 
-#' Pulls data from the Emsi Episteme API according to specified parameters and returns a prepared data frame for analysis.
+#' Pull data from the Episteme API
+#'
+#' @description Pulls data from the Emsi Episteme API according to specified parameters and returns a prepared data frame for analysis.
 #'
 #' @param country The two-character country code.
 #' @param content The Emsi Episteme dataset description (e.g. "Occupation").
 #' @param release The release or version identifier for the dataset (e.g. "2016.1").
 #' @param constraints A list of dimensional constraints relevant to the dataset, each of which has been prepared through
-#' \code[\link[dimmaker]] or \code[\link[CoW]].
-#' @param metrics A set of metrics through which to quantify the data, prepared through \code[\link[metricmaker]].
+#' \code{\link{dimmaker}} or \code{\link{CoW}}.
+#' @param metrics A set of metrics through which to quantify the data, prepared through \code{\link{metricmaker}}.
 #' @return A data frame of dimensions and metrics, with dimensions classified as factors and metrics as doubles.
 #' @examples
 #' met1 <- data.frame(names=c("Jobs.2016","Jobs.2022"), as=c("Jobs.2016","Jobs.2022"))

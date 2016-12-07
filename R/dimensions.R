@@ -1,4 +1,3 @@
-#' Background function to process a mapping of names to identifiers along a dimension.
 mapper <- function(mapping) {
     map1 <- mapping %>% dplyr::group_by(name) %>% tidyr::nest()
     map2 <- purrr::map(map1$data, "code") %>% purrr::map(as.list)
@@ -6,13 +5,15 @@ mapper <- function(mapping) {
     return(map2)
 }
 
-#' Takes a data frame of names and codes along a dimension and specifies them ready for an Emsi Episteme data pull.
+#' Specify dimension for an Episteme API query
+#'
+#' @description  Takes a data frame of names and codes along a dimension and specifies them ready for an Emsi Episteme data pull.
 #'
 #' @param dimension A named dimension required by the dataset being used for analysis (e.g. "Occupation").
 #' @param mapping This may take the form of the atomic "asIdentity" if all possible individual items are required with
-#' no relabelling, or else a data frame with two columns: \code[name] sets labels for \code[code] which refers to the
-#' geographic, industry, occupation or other codes used to categorise data within Episteme. Where one label covers
-#' multiple codes, \code[dimmaker] will merge them to form a hybrid category.
+#' no relabelling, or else a data frame with two columns: \code{name} sets labels for \code{code} which refers to the
+#' geographic, industry, occupation or other codes used to categorise data within Episteme. Where one label is used for
+#' multiple codes, \code{dimmaker} will merge them to form a hybrid category.
 #' @return A prepared list identifying the dimension and supporting mapping, ready to organise a data pull query.
 #' @examples
 #' mgrs <- data.frame(names=c("CEOs",
@@ -37,7 +38,7 @@ dimmaker <- function(dimension, mapping) {
 #' @param option One of "E" (for Employee), "P" (for "Proprietor"), "A" (for "All" combined) or "S" (for
 #' Employee and Proprietor separately.)
 #' @return The necessary mapping for ClassOfWorker for inclusion in a data pull query.
-#' @example
+#' @examples
 #' CoW("E")
 CoW <- function(option) {
     if (option == "E") {

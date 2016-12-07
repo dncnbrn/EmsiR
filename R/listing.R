@@ -1,4 +1,6 @@
-#' Return a full listing of datasets available on the Emsi Episteme API.
+#' Query available dataset on the Episteme API
+#'
+#' @description Queries the Episteme API regarding available datasets and returns them in an organised list.
 #'
 #' @return A full listing of datasets with description by Country, Content and Release, to allow for filtering.
 dataset_list <- function() {
@@ -14,7 +16,9 @@ dataset_list <- function() {
     return(final)
 }
 
-#' Return a full listing of concepts used on the Emsi Episteme API.
+#' Query concepts used on the Episteme API
+#'
+#' @description Queries the Episteme API regarding concepts used to structure data and returns them in an organised list.
 #'
 #' @return A full listing of concepts with description by Country and Concept.
 concept_list <- function() {
@@ -26,12 +30,16 @@ concept_list <- function() {
         Content = substr(Identifier, 9, nchar(Identifier))) %>% dplyr::select(Country, Content, Identifier)
 }
 
-#' Identify the available metrics and required dimensions for a dataset held on Emsi Episteme.
+#' Query the details of an Episteme API dataset
+#'
+#' @description Identify the available metrics and required dimensions for a dataset held on Emsi Episteme.
 #'
 #' @param country The two-digit country identifier for the dataset.
-#' @param content The keyword identifier for the content of the dataset (e.g. \code["Occupation"], \code["Industry"]).
-#' @param release The release or version identifier for the dataset (e.g. \code["2016.1"]).
-#' @return A list with two elements: \code[Metrics] lists the Metrics available within the dataset and \code[Dimensions] lists the dimensions requiring constraint when making a request for data. Note that \code[Metrics] does not include Location Quotients and Shift-Share, which are derived from the metrics here.
+#' @param content The keyword identifier for the content of the dataset (e.g. \code{"Occupation"}, \code{"Industry"}).
+#' @param release The release or version identifier for the dataset (e.g. \code{"2016.1"}).
+#' @return A list with two elements: \code{Metrics} lists the Metrics available within the dataset and \code{Dimensions}
+#' lists the dimensions requiring constraint when making a request for data. Note that \code{Metrics}
+#'  does not include Location Quotients and Shift-Share, which are derived from the metrics here.
 #' @examples
 #' dataset_detail("UK","Occupation","2016.1")
 dataset_detail <- function(country, content, release) {
@@ -44,10 +52,12 @@ dataset_detail <- function(country, content, release) {
         "name"] %>% dplyr::tbl_df()))
 }
 
-#' Identify the parameters of concepts used to organise data within Emsi Episteme.
+#' Query the details of an Episteme API concept
+#'
+#' @description Identify the parameters of concepts used to organise data within Emsi Episteme.
 #'
 #' @param country The two-digit country identifier for the concept.
-#' @param content The keyword identifier for the content of the concept (e.g. \code["Occupation"], \code["Industry"]).
+#' @param content The keyword identifier for the content of the concept (e.g. \code{"Occupation"}, \code{"Industry"}).
 #' @return A list of parameters (typically concept levels) associated with the concept.
 #' @examples
 #' concept_detail("UK", "SOC.2010")
