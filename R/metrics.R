@@ -1,3 +1,4 @@
+#' @export
 metricalc <- function(metrics, base, geoparent, along) {
     if (metrics == "LQ") {
         metout <- list(name = "LocationQuotient", geoparent = geoparent, along = along)

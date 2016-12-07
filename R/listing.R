@@ -5,15 +5,18 @@
 #' @return A full listing of datasets with description by Country, Content and Release, to allow for filtering.
 #' @export
 dataset_list <- function() {
-    datasets <- httr:POST("http://episteme.economicmodeling.com/meta", body = NULL, encode = "json", httr::add_headers(EpistemeSettings()))
+    datasets <- httr::POST("http://episteme.economicmodeling.com/meta", body = NULL, encode = "json", httr::add_headers(EpistemeSettings()))
     rawdata <- jsonlite::fromJSON(httr::content(datasets, "text"), simplifyVector = FALSE)
     datasets <- rawdata[[1]] %>% purrr::transpose()
     name <- unlist(datasets[[1]])
     versions <- as.numeric(purrr::map_chr(datasets[[2]], length))
     datasets <- data.frame(dataset = c(rep(name, versions)), version = c(unlist(datasets[[2]])))
-    datasets <- dplyr::tbl_df() %>% dplyr::mutate(Dataset = as.character(dataset), Version = as.character(version), Country = substr(dataset,
-        6, 7), Content = substr(dataset, 9, nchar(Dataset)), Identifier = paste(dataset, "/", version, sep = "")) %>% dplyr::arrange(Country) %>%
-        dplyr::select(-dataset, -version, -Dataset, Country, Content, Version, Identifier) %>% dplyr::group_by(Country, Content)
+    final <- datasets %>% dplyr::tbl_df() %>%
+      dplyr::mutate(Dataset = as.character(dataset), Version = as.character(version), Country = substr(dataset,
+        6, 7), Content = substr(dataset, 9, nchar(Dataset)), Identifier = paste(dataset, "/", version, sep = "")) %>%
+      dplyr::arrange(Country) %>%
+      dplyr::select(-dataset, -version, -Dataset, Country, Content, Version, Identifier) %>%
+      dplyr::group_by(Country, Content)
     return(final)
 }
 

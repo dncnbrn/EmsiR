@@ -1,7 +1,8 @@
+#' @export
 mapper <- function(mapping) {
     map1 <- mapping %>% dplyr::group_by(name) %>% tidyr::nest()
     map2 <- purrr::map(map1$data, "code") %>% purrr::map(as.list)
-    names(map2) <- map1$names
+    names(map2) <- map1$name
     return(map2)
 }
 
