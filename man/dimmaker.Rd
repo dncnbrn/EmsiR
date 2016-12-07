@@ -12,7 +12,10 @@ dimmaker(dimension, mapping)
 \item{mapping}{This may take the form of the atomic "asIdentity" if all possible individual items are required with
 no relabelling, or else a data frame with two columns: \code{name} sets labels for \code{code} which refers to the
 geographic, industry, occupation or other codes used to categorise data within Episteme. Where one label is used for
-multiple codes, \code{dimmaker} will merge them to form a hybrid category.}
+multiple codes, \code{dimmaker} will merge them to form a hybrid category.
+
+If you want to pass a map with multiple codes to some of the labels, use a tibble with a list column for \code{code} and
+then pass each label a sequence of the form \code{c("1211", "1212")}.}
 }
 \value{
 A prepared list identifying the dimension and supporting mapping, ready to organise a data pull query.

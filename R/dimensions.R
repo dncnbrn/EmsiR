@@ -1,9 +1,17 @@
 #' @export
 mapper <- function(mapping) {
-    map1 <- mapping %>% dplyr::group_by(name) %>% tidyr::nest()
-    map2 <- purrr::map(map1$data, "code") %>% purrr::map(as.list)
-    names(map2) <- map1$name
-    return(map2)
+    if (class(mapping$code)=="list") {
+      mapping <- tidyr::unnest(mapping)
+      map1 <- mapping %>% dplyr::group_by(name) %>% tidyr::nest()
+      map2 <- purrr::map(map1$data, "code") %>% purrr::map(as.list)
+      names(map2) <- map1$name
+      return(map2)
+    } else {
+      map1 <- mapping %>% dplyr::group_by(name) %>% tidyr::nest()
+      map2 <- purrr::map(map1$data, "code") %>% purrr::map(as.list)
+      names(map2) <- map1$name
+      return(map2)
+    }
 }
 
 #' Specify dimension for an Episteme API query
@@ -15,6 +23,10 @@ mapper <- function(mapping) {
 #' no relabelling, or else a data frame with two columns: \code{name} sets labels for \code{code} which refers to the
 #' geographic, industry, occupation or other codes used to categorise data within Episteme. Where one label is used for
 #' multiple codes, \code{dimmaker} will merge them to form a hybrid category.
+#'
+#' If you want to pass a map with multiple codes to some of the labels, use a tibble with a list column for \code{code} and
+#' then pass each label a sequence of the form \code{c("1211", "1212")}.
+#'
 #' @return A prepared list identifying the dimension and supporting mapping, ready to organise a data pull query.
 #' @examples
 #' mgrs <- data.frame(names=c("CEOs",
