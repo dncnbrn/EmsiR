@@ -3,6 +3,7 @@
 #' @description Queries the Episteme API regarding available datasets and returns them in an organised list.
 #'
 #' @return A full listing of datasets with description by Country, Content and Release, to allow for filtering.
+#' @export
 dataset_list <- function() {
     datasets <- httr:POST("http://episteme.economicmodeling.com/meta", body = NULL, encode = "json", httr::add_headers(EpistemeSettings()))
     rawdata <- jsonlite::fromJSON(httr::content(datasets, "text"), simplifyVector = FALSE)
@@ -21,6 +22,7 @@ dataset_list <- function() {
 #' @description Queries the Episteme API regarding concepts used to structure data and returns them in an organised list.
 #'
 #' @return A full listing of concepts with description by Country and Concept.
+#' @export
 concept_list <- function() {
     datasets <- httr::POST("http://episteme.economicmodeling.com/meta", body = NULL, encode = "json", httr::add_headers(EpistemeSettings()))
     rawdata <- jsonlite::fromJSON(httr::content(datasets, "text"), simplifyVector = FALSE)
@@ -42,6 +44,7 @@ concept_list <- function() {
 #'  does not include Location Quotients and Shift-Share, which are derived from the metrics here.
 #' @examples
 #' dataset_detail("UK","Occupation","2016.1")
+#' @export
 dataset_detail <- function(country, content, release) {
     dataset <- paste("EMSI", country, content, sep = ".")
     URI <- paste("http://episteme.economicmodeling.com/meta/dataset", dataset, release, sep = "/")
@@ -61,6 +64,7 @@ dataset_detail <- function(country, content, release) {
 #' @return A list of parameters (typically concept levels) associated with the concept.
 #' @examples
 #' concept_detail("UK", "SOC.2010")
+#' @export
 concept_detail <- function(country, concept) {
     concept <- paste("EMSI", country, concept, sep = ".")
     URI <- paste("http://episteme.economicmodeling.com/meta/concept", concept, sep = "/")

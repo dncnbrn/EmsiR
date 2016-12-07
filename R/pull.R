@@ -31,6 +31,7 @@ pullquery <- function(country, content, release, constraints, metrics) {
 #' areadim <- dimmaker("Area", area1)
 #' occdim <- dimmaker("Occupation", "asIdentity")
 #' datapull("UK","Occupation","2016.1",list(CoW("A"),areadim,occsdim),met1)
+#' @export
 datapull <- function(country, content, release, constraints, metrics) {
     if (ncol(metrics) == 2) {
         outputdata <- pullquery(country, content, release, constraints, metrics)

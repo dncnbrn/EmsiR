@@ -24,6 +24,7 @@ metricalc <- function(metrics, base, geoparent, along) {
 #' metricmaker(met1)
 #' met2 <- data.frame(name=c("Jobs.2016","Jobs.2016","Jobs.2016"),as=c("Jobs16","LQ16","SS16"),metrics=c(NA,"LQ","SS"),base=c(NA,NA,"Jobs.2003"))
 #' metricmaker(met2, "GB", "Occupation")
+#' @export
 metricmaker <- function(metricdf, geoparent, along) {
     if (ncol(metricdf) == 2) {
         metricdf$metrics <- c(rep(NA, nrow(metricdf)))

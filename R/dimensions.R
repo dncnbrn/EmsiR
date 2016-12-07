@@ -21,6 +21,7 @@ mapper <- function(mapping) {
 #'                            rep("Group of managers B",4)),
 #'                    codes=c("1115","1116","1121","1122","1123","1131","1132","1133"))
 #' occs <- dimmaker("Occupation", mgrs)
+#' @export
 dimmaker <- function(dimension, mapping) {
     if (is.atomic(mapping)) {
         if (mapping == "asIdentity") {
@@ -40,6 +41,7 @@ dimmaker <- function(dimension, mapping) {
 #' @return The necessary mapping for ClassOfWorker for inclusion in a data pull query.
 #' @examples
 #' CoW("E")
+#' @export
 CoW <- function(option) {
     if (option == "E") {
         mapClassCode <- list("1")
