@@ -1,3 +1,4 @@
+#' @importFrom magrittr "%>%"
 #' @export
 metricalc <- function(metrics, name, base, geoparent, along) {
     if (metrics == "LQ") {
@@ -28,6 +29,7 @@ metricalc <- function(metrics, name, base, geoparent, along) {
 #' metricmaker(met1)
 #' met2 <- data.frame(name=c("Jobs.2016","Jobs.2016","Jobs.2016"),as=c("Jobs16","LQ16","SS16"),metrics=c(NA,"LQ","SS"),base=c(NA,NA,"Jobs.2003"))
 #' metricmaker(met2, "GB", "Occupation")
+#' @importFrom magrittr "%>%"
 #' @export
 metricmaker <- function(metricdf, geoparent, along) {
     if (ncol(metricdf) == 2) {

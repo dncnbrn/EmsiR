@@ -1,3 +1,13 @@
+#' Pipe operator
+#'
+#' Hopefully this really works
+#'
+#' @importFrom magrittr %>%
+#' @name %>%
+#' @rdname pipe
+#' @export
+
+#' @importFrom magrittr "%>%"
 #' Set login details for the Episteme API.
 #'
 #' @description  Sets login details for Emsi Episteme as environment variables which will be used to authenticate all queries to the API.
@@ -6,7 +16,6 @@
 #' @param password is the episteme-secret1 variable for Episteme.
 #' @return The variables are placed within the environment for use by other functions.
 #' @export
-#' @importFrom magrittr "%>%"
 EpistemeLogin <- function(username, password) {
     Sys.setenv(EMSIUN = username, EMSIPW = password)
 }
