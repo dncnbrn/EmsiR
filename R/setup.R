@@ -5,6 +5,7 @@
 #' @param username is the episteme-username variable for Episteme.
 #' @param password is the episteme-secret1 variable for Episteme.
 #' @return The variables are placed within the environment for use by other functions.
+#' @importFrom magrittr "%>%"
 #' @export
 EpistemeLogin <- function(username, password) {
     Sys.setenv(EMSIUN = username, EMSIPW = password)
