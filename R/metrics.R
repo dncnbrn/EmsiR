@@ -1,10 +1,13 @@
 #' @export
-metricalc <- function(metrics, base, geoparent, along) {
+metricalc <- function(metrics, name, base, geoparent, along) {
     if (metrics == "LQ") {
         metout <- list(name = "LocationQuotient", geoparent = geoparent, along = along)
     }
     if (metrics == "SS") {
         metout <- list(name = "ShiftShare", geoparent = geoparent, along = along, base = base)
+    }
+    if (metrics == "OP") {
+        metout <- list(name = "LegacyOpenings", startYear = base, endYear = name)
     }
     return(metout)
 }
@@ -42,10 +45,12 @@ metricmaker <- function(metricdf, geoparent, along) {
         a <- metricdf %>% dplyr::filter(is.na(metrics)) %>% dplyr::select(name, as)
         a$operation <- list(NA)
         b <- metricdf %>% dplyr::filter(!is.na(metrics))
-        b <- b %>% dplyr::mutate(geoparent = geoparent, along = along) %>% dplyr::group_by(name, as) %>% dplyr::do(operation = metricalc(.$metrics,
+        b <- b %>% dplyr::mutate(geoparent = geoparent, along = along) %>% dplyr::group_by(name, as) %>% dplyr::do(operation = metricalc(.$metrics, .$name,
             .$base, .$geoparent, .$along))
         metrics <- dplyr::bind_rows(a, b)
         rm(a, b)
     }
     return(metrics)
 }
+
+
