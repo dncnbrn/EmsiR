@@ -2,14 +2,7 @@
 % Please edit documentation in R/setup.R
 \name{EpistemeLogin}
 \alias{EpistemeLogin}
-<<<<<<< HEAD
 \title{Set login details for the Episteme API.}
-=======
-<<<<<<< HEAD:man/EpistemeLogin.Rd
-\title{Set login details for the Episteme API.}
-=======
->>>>>>> 3c0c3049b1be30f9bac12543ad9df28fc606637c:man/EpistemeLogin.Rd
->>>>>>> master
 \usage{
 EpistemeLogin(username, password)
 }
