@@ -1,13 +1,3 @@
-#' Pipe operator
-#'
-#' Hopefully this really works
-#'
-#' @importFrom magrittr %>%
-#' @name %>%
-#' @rdname pipe
-#' @export
-
-#' @importFrom magrittr "%>%"
 #' Set login details for the Episteme API.
 #'
 #' @description  Sets login details for Emsi Episteme as environment variables which will be used to authenticate all queries to the API.

@@ -8,7 +8,7 @@ metricalc <- function(metrics, name, base, geoparent, along) {
         metout <- list(name = "ShiftShare", geoparent = geoparent, along = along, base = base)
     }
     if (metrics == "OP") {
-        metout <- list(name = "LegacyOpenings", startYear = base, endYear = name)
+        metout <- list(name = "LegacyOpenings", startYear = as.integer(substr(base,6,9)), endYear = as.integer(substr(base,6,9)))
     }
     return(metout)
 }
