@@ -8,13 +8,13 @@ metricmaker(metricdf, geoparent, along)
 }
 \arguments{
 \item{metricdf}{at minimum, a data frame with two columns: \code{name} sets out the desired names for the metrics and
-\code{as} sets out the titles of the codes on Emsi Episteme. Where using derivative metrics (Location Quotients and
- Shift-Share), additional columns are required in the form of \code{metrics} to specify if they are \emph{"LQ"} or
- \emph{"SS"} and, for Shift-Share, a \code{base} column identifies the comparison metric for the year.}
+\code{as} sets out the titles of the codes on Emsi Episteme. Where using derivative metrics (Openings, Location Quotients and
+ Shift-Share), additional columns are required in the form of \code{metrics} to specify if they are \emph{"OP"}, \emph{"LQ"} or
+ \emph{"SS"} and, for Openings and Shift-Share, a \code{base} column identifies the comparison metric for the year.}
 
-\item{geoparent}{is required for Location Quotient and Shift-Share analysis, and is a geographical code identifing the parent geographical unit for analysis.}
+\item{geoparent}{is required for derivative metrics, and is a geographical code identifing the parent geographical unit for analysis.}
 
-\item{along}{is required for Location Quotient and Shift-Share analysis, and reflects the intended domain for analysis (e.g. "Industry" or "Occupation").}
+\item{along}{is required for derivative metrics, and reflects the intended domain for analysis (e.g. "Industry" or "Occupation").}
 }
 \value{
 A prepared data frame which will be ready for inclusion in a data pull query.

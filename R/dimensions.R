@@ -40,7 +40,7 @@ dimmaker <- function(dimension, mapping) {
         if (mapping == "asIdentity") {
             list(dimensionName = dimension, asIdentity = TRUE)
         } else {
-            print("No mapping or asIdentity proposed.")
+            message("No mapping or asIdentity proposed.")
         }
     } else {
         list(dimensionName = dimension, map = mapper(mapping))
