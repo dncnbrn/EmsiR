@@ -40,14 +40,20 @@ metricmaker <- function(metricdf, geoparent, along) {
         metrics$metrics <- NULL
     }
     if (ncol(metricdf) >= 3 & nrow(metricdf[is.na(metricdf$metrics), ]) == 0) {
-        metrics <- metricdf %>% dplyr::mutate(geoparent = geoparent, along = along) %>% dplyr::group_by(name, as) %>% dplyr::do(operation = metricalc(.$metrics,
+        metrics <- metricdf %>%
+          dplyr::mutate(geoparent = geoparent, along = along) %>%
+          dplyr::group_by(name, as) %>%
+          dplyr::do(operation = metricalc(.$metrics, .$name,
             .$base, .$geoparent, .$along))
     }
     if (ncol(metricdf) >= 3 & nrow(metricdf[!is.na(metricdf$metrics), ]) > 0 & nrow(metricdf[is.na(metricdf$metrics), ]) > 0) {
         a <- metricdf %>% dplyr::filter(is.na(metrics)) %>% dplyr::select(name, as)
         a$operation <- list(NA)
         b <- metricdf %>% dplyr::filter(!is.na(metrics))
-        b <- b %>% dplyr::mutate(geoparent = geoparent, along = along) %>% dplyr::group_by(name, as) %>% dplyr::do(operation = metricalc(.$metrics, .$name,
+        b <- b %>%
+          dplyr::mutate(geoparent = geoparent, along = along) %>%
+          dplyr::group_by(name, as) %>%
+          dplyr::do(operation = metricalc(.$metrics, .$name,
             .$base, .$geoparent, .$along))
         metrics <- dplyr::bind_rows(a, b)
         rm(a, b)
