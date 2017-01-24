@@ -10,7 +10,9 @@ pullquery <- function(country, content, release, constraints, metrics) {
     rm(r2)
     outputdata[, colnames(outputdata) %in% names(constraints)] <- apply(outputdata[, colnames(outputdata) %in% names(constraints)],
         2, function(x) factor(x))
-    outputdata[, colnames(outputdata) %in% metrics$as] <- apply(outputdata[, colnames(outputdata) %in% metrics$as], 2, function(x) as.numeric(x))
+    if(ncol(outputdata[, colnames(outputdata) %in% metrics$as])>1) {
+      outputdata[, colnames(outputdata) %in% metrics$as] <- apply(outputdata[, colnames(outputdata) %in% metrics$as], 2, function(x) as.numeric(x))
+    }
     return(outputdata)
 }
 
@@ -37,7 +39,7 @@ datapull <- function(country, content, release, constraints, metrics) {
     if (ncol(metrics) == 2) {
         outputdata <- pullquery(country, content, release, constraints, metrics)
     }
-    if (ncol(metrics) == 3) {
+    if (ncol(metrics) > 2) {
         if (nrow(metrics[is.na(metrics$operation), ]) == 0) {
             outputdata <- pullquery(country, content, release, constraints, metrics)
         }
