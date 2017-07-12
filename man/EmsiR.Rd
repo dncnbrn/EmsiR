@@ -11,4 +11,3 @@ implementing queries for data from the labour market
 intelligence available through the Emsi
 Episteme API from within R.
 }
-

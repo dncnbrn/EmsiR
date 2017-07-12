@@ -2,7 +2,7 @@
 % Please edit documentation in R/dimensions.R
 \name{CoW}
 \alias{CoW}
-\title{A short-hand function to map ClassOfWorker dimensions around one of four options}
+\title{A short-hand function to map UK ClassOfWorker dimensions around one of four options}
 \usage{
 CoW(option)
 }
@@ -14,9 +14,8 @@ Employee and Proprietor separately.)}
 The necessary mapping for ClassOfWorker for inclusion in a data pull query.
 }
 \description{
-A short-hand function to map ClassOfWorker dimensions around one of four options
+A short-hand function to map UK ClassOfWorker dimensions around one of four options
 }
 \examples{
 CoW("E")
 }
-

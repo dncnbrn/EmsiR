@@ -28,4 +28,3 @@ metricmaker(met1)
 met2 <- data.frame(name=c("Jobs.2016","Jobs.2016","Jobs.2016"),as=c("Jobs16","LQ16","SS16"),metrics=c(NA,"LQ","SS"),base=c(NA,NA,"Jobs.2003"))
 metricmaker(met2, "GB", "Occupation")
 }
-

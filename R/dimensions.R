@@ -47,7 +47,7 @@ dimmaker <- function(dimension, mapping) {
     }
 }
 
-#' A short-hand function to map ClassOfWorker dimensions around one of four options
+#' A short-hand function to map UK ClassOfWorker dimensions around one of four options
 #'
 #' @param option One of "E" (for Employee), "P" (for "Proprietor"), "A" (for "All" combined) or "S" (for
 #' Employee and Proprietor separately.)
@@ -78,4 +78,55 @@ CoW <- function(option) {
         ClassOfWorker <- list(dimensionName = "ClassOfWorker", map = mapClass)
     }
     return(ClassOfWorker)
+}
+
+#' A short-hand function to map US ClassOfWorker dimensions around one different options
+#'
+#' @param option One of "E" (for all employees, QCEW and non-QCEW),
+#' "Q" (for QCEW Employee), "N" (for non-QCEW Employee),
+#' "S" (for all self-employed), "SE1" (for self-employed but not extended proprietors),
+#' "SE2" (for extended proprietors ). Finally, "A" gives all employed and self-employed,
+#' and "S" gives all employed and self-employed broken down.
+#' @return The necessary mapping for ClassOfWorker for inclusion in a data pull query.
+#' @examples
+#' CoW("E")
+#' @export
+usCoW <- function(option) {
+  if (option == "A") {
+    mapClassCode <- list("1","2","3","4")
+    mapClass <- list(`All` = mapClassCode)
+    ClassOfWorker <- list(dimensionName = "ClassOfWorker", map = mapClass)
+  }
+  if (option == "E") {
+    mapClassCode <- list("1","2")
+    mapClass <- list(`Employees` = mapClassCode)
+    ClassOfWorker <- list(dimensionName = "ClassOfWorker", map = mapClass)
+  }
+  if (option == "Q") {
+    mapClassCode <- list("1")
+    mapClass <- list(`QCEW employees` = mapClassCode)
+    ClassOfWorker <- list(dimensionName = "ClassOfWorker", map = mapClass)
+  }
+  if (option == "N") {
+    mapClassCode <- list("2")
+    mapClass <- list(`non-QCEW employees` = mapClassCode)
+    ClassOfWorker <- list(dimensionName = "ClassOfWorker", map = mapClass)
+  }
+  if (option == "SE") {
+    mapClassCode <- list("3","4")
+    mapClass <- list(`Self-employed` = mapClassCode)
+    ClassOfWorker <- list(dimensionName = "ClassOfWorker", map = mapClass)
+  }
+  if (option == "SE1") {
+    mapClassCode <- list("3", "2")
+    mapClass <- list(`Self-employed not extended proprietors` = mapClassCode)
+    ClassOfWorker <- list(dimensionName = "ClassOfWorker", map = mapClass)
+  }
+  if (option == "S") {
+    mapClassCode1 <- list("1","2")
+    mapClassCode2 <- list("3","4")
+    mapClass <- list(Employees = mapClassCode1, `Self-employed` = mapClassCode2)
+    ClassOfWorker <- list(dimensionName = "ClassOfWorker", map = mapClass)
+  }
+  return(ClassOfWorker)
 }

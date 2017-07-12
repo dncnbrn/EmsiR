@@ -30,4 +30,3 @@ mgrs <- data.frame(names=c("CEOs",
                    codes=c("1115","1116","1121","1122","1123","1131","1132","1133"))
 occs <- dimmaker("Occupation", mgrs)
 }
-

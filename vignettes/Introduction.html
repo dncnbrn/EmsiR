@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dunncan Brown, Emsi UK" />
 
-<meta name="date" content="2016-12-07" />
+<meta name="date" content="2017-05-26" />
 
 <title>Introduction to EmsiR: how to query the Episteme API from within R</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Introduction to EmsiR: how to query the Episteme API from within R</h1>
 <h4 class="author"><em>Dunncan Brown, Emsi UK</em></h4>
-<h4 class="date"><em>2016-12-07</em></h4>
+<h4 class="date"><em>2017-05-26</em></h4>
 
 
 <div id="TOC">
@@ -88,7 +88,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </div>
 
-<p>The Emsi Episteme API gathers together a wide range of labour market intelligence datasets, allowing economists and labour market analysts unrivalled resources to explore past, current and projected future employment across the USA, UK, Australia, Canada, Brazil and France. The <code>EmsiR</code> package has been produced to facilitate calls to the Episteme API from the R programming language, allowing R users to more quickly identify, specify and implement data pulls to inform their analysis. In this vignette, I take you through a few simple examples to demonstrate how the package cuts down the process of querying Episteme.</p>
+<p>The Emsi Episteme API gathers together a wide range of labour market intelligence datasets, allowing economists and labour market analysts unrivalled resources to explore past, current and projected future employment across the USA, UK, Australia and Canada. The <code>EmsiR</code> package has been produced to facilitate calls to the Episteme API from the R programming language, allowing R users to more quickly identify, specify and implement data pulls to inform their analysis. In this vignette, I take you through a few simple examples to demonstrate how the package cuts down the process of querying Episteme.</p>
 <p>The package is simply a wrapper for a workflow which is primarily built around <code>tidyverse</code> packages: especially <code>httr</code> but with the support of <code>dplyr</code>, <code>tidyr</code> and <code>purrr</code> to wrangle the data into usable form. Querying Episteme can be tricky as there are quite a few potential parameters which need to be set correctly; this package aims to simplify that process.</p>
 <div id="setting-up-on-episteme" class="section level2">
 <h2>Setting up on Episteme</h2>
@@ -103,8 +103,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Listing the datasets available on Episteme</h2>
 <p>We might want to check out what’s available, so first we get a listing of the datasets currently hosted on Episteme:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dataset_list</span>()</code></pre></div>
-<pre><code>## Source: local data frame [188 x 4]
-## Groups: Country, Content [69]
+<pre><code>## Source: local data frame [180 x 4]
+## Groups: Country, Content [75]
 ## 
 ##    Version Country              Content                     Identifier
 ##      &lt;chr&gt;   &lt;chr&gt;                &lt;chr&gt;                          &lt;chr&gt;
@@ -118,7 +118,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 8   2014.1      BR         Institutions    EMSI.BR.Institutions/2014.1
 ## 9   2013.3      BR         Institutions    EMSI.BR.Institutions/2013.3
 ## 10  2014.1      BR           Occupation      EMSI.BR.Occupation/2014.1
-## # ... with 178 more rows</code></pre>
+## # ... with 170 more rows</code></pre>
 <p>And we can filter this using <code>dplyr</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
 <pre><code>## 
@@ -130,22 +130,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dataset_list</span>() %&gt;%<span class="st"> </span><span class="kw">filter</span>(Country==<span class="st">&quot;UK&quot;</span>)</code></pre></div>
-<pre><code>## Source: local data frame [23 x 4]
+<pre><code>## Source: local data frame [22 x 4]
 ## Groups: Country, Content [8]
 ## 
 ##    Version Country              Content
 ##      &lt;chr&gt;   &lt;chr&gt;                &lt;chr&gt;
-## 1   2013.1      UK             Staffing
-## 2   2014.1      UK             Staffing
-## 3   2015.1      UK             Staffing
-## 4   2016.1      UK             Staffing
-## 5   2013.1      UK             Industry
-## 6   2014.1      UK             Industry
-## 7   2015.1      UK             Industry
-## 8   2016.1      UK             Industry
-## 9        2      UK       ClaimantCounts
-## 10  2015.1      UK Occupation.AgeGender
-## # ... with 13 more rows, and 1 more variables: Identifier &lt;chr&gt;</code></pre>
+## 1   2017.1      UK             Industry
+## 2   2015.1      UK             Industry
+## 3   2016.1      UK             Industry
+## 4        2      UK       ClaimantCounts
+## 5   2017.1      UK Occupation.AgeGender
+## 6   2015.1      UK Occupation.AgeGender
+## 7   2016.1      UK Occupation.AgeGender
+## 8   2017.1      UK   Industry.AgeGender
+## 9   2015.1      UK   Industry.AgeGender
+## 10  2016.1      UK   Industry.AgeGender
+## # ... with 12 more rows, and 1 more variables: Identifier &lt;chr&gt;</code></pre>
 </div>
 <div id="exploring-an-individual-dataset" class="section level2">
 <h2>Exploring an individual dataset</h2>
@@ -153,28 +153,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dataset_detail</span>(<span class="st">&quot;UK&quot;</span>, <span class="st">&quot;Occupation&quot;</span>, <span class="st">&quot;2016.1&quot;</span>)</code></pre></div>
 <pre><code>## $Metrics
 ## $Metrics$value
-##  [1] &quot;Earnings.Median.Annual&quot;       &quot;Earnings.Median.Annual&quot;      
-##  [3] &quot;Earnings.Percentile10&quot;        &quot;Earnings.Percentile10.Annual&quot;
-##  [5] &quot;Earnings.Percentile25&quot;        &quot;Earnings.Percentile25.Annual&quot;
-##  [7] &quot;Earnings.Percentile50&quot;        &quot;Earnings.Percentile50.Annual&quot;
-##  [9] &quot;Earnings.Percentile75&quot;        &quot;Earnings.Percentile75.Annual&quot;
-## [11] &quot;Earnings.Percentile90&quot;        &quot;Earnings.Percentile90.Annual&quot;
-## [13] &quot;Jobs.2003&quot;                    &quot;Jobs.2004&quot;                   
-## [15] &quot;Jobs.2005&quot;                    &quot;Jobs.2006&quot;                   
-## [17] &quot;Jobs.2007&quot;                    &quot;Jobs.2008&quot;                   
-## [19] &quot;Jobs.2009&quot;                    &quot;Jobs.2010&quot;                   
-## [21] &quot;Jobs.2011&quot;                    &quot;Jobs.2012&quot;                   
-## [23] &quot;Jobs.2013&quot;                    &quot;Jobs.2014&quot;                   
-## [25] &quot;Jobs.2015&quot;                    &quot;Jobs.2016&quot;                   
-## [27] &quot;Jobs.2017&quot;                    &quot;Jobs.2018&quot;                   
-## [29] &quot;Jobs.2019&quot;                    &quot;Jobs.2020&quot;                   
-## [31] &quot;Jobs.2021&quot;                    &quot;Jobs.2022&quot;                   
-## [33] &quot;Replacements&quot;                
+##  [1] &quot;Earnings.Median.Annual&quot; &quot;Earnings.Percentile10&quot; 
+##  [3] &quot;Earnings.Percentile25&quot;  &quot;Earnings.Percentile50&quot; 
+##  [5] &quot;Earnings.Percentile75&quot;  &quot;Earnings.Percentile90&quot; 
+##  [7] &quot;Jobs.2003&quot;              &quot;Jobs.2004&quot;             
+##  [9] &quot;Jobs.2005&quot;              &quot;Jobs.2006&quot;             
+## [11] &quot;Jobs.2007&quot;              &quot;Jobs.2008&quot;             
+## [13] &quot;Jobs.2009&quot;              &quot;Jobs.2010&quot;             
+## [15] &quot;Jobs.2011&quot;              &quot;Jobs.2012&quot;             
+## [17] &quot;Jobs.2013&quot;              &quot;Jobs.2014&quot;             
+## [19] &quot;Jobs.2015&quot;              &quot;Jobs.2016&quot;             
+## [21] &quot;Jobs.2017&quot;              &quot;Jobs.2018&quot;             
+## [23] &quot;Jobs.2019&quot;              &quot;Jobs.2020&quot;             
+## [25] &quot;Jobs.2021&quot;              &quot;Jobs.2022&quot;             
+## [27] &quot;Replacements&quot;          
 ## 
 ## 
 ## $Dimensions
 ## $Dimensions$value
-## [1] &quot;ClassOfWorker&quot; &quot;Occupation&quot;    &quot;Area&quot;</code></pre>
+## [1] &quot;Occupation&quot;    &quot;ClassOfWorker&quot; &quot;Area&quot;</code></pre>
 </div>
 <div id="first-query" class="section level2">
 <h2>First query</h2>
@@ -269,7 +266,7 @@ jsonlite::<span class="kw">toJSON</span>(dimOcc2)</code></pre></div>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

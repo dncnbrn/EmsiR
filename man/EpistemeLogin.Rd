@@ -17,4 +17,3 @@ The variables are placed within the environment for use by other functions.
 \description{
 Sets login details for Emsi Episteme as environment variables which will be used to authenticate all queries to the API.
 }
-

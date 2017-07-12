@@ -12,4 +12,3 @@ A full listing of datasets with description by Country, Content and Release, to 
 \description{
 Queries the Episteme API regarding available datasets and returns them in an organised list.
 }
-

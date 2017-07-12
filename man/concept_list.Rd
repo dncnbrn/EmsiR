@@ -12,4 +12,3 @@ A full listing of concepts with description by Country and Concept.
 \description{
 Queries the Episteme API regarding concepts used to structure data and returns them in an organised list.
 }
-

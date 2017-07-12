@@ -24,4 +24,3 @@ Identify the available metrics and required dimensions for a dataset held on Ems
 \examples{
 dataset_detail("UK","Occupation","2016.1")
 }
-

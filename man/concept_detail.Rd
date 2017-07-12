@@ -20,4 +20,3 @@ Identify the parameters of concepts used to organise data within Emsi Episteme.
 \examples{
 concept_detail("UK", "SOC.2010")
 }
-

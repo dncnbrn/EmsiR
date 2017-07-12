@@ -9,4 +9,3 @@ EpistemeSettings()
 \description{
 Background function which is used to take Emsi Episteme login details set by \code{\link{EpistemeLogin}} and prepares the header for all queries to the API.
 }
-

@@ -32,4 +32,3 @@ areadim <- dimmaker("Area", area1)
 occdim <- dimmaker("Occupation", "asIdentity")
 datapull("UK","Occupation","2016.1",list(CoW("A"),areadim,occsdim),met1)
 }
-

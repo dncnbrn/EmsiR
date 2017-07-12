@@ -5,10 +5,10 @@ metricalc <- function(metrics, name, base, geoparent, along) {
         metout <- list(name = "LocationQuotient", geoparent = geoparent, along = along)
     }
     if (metrics == "SS") {
-        metout <- list(name = "ShiftShare", geoparent = geoparent, along = along, base = base)
+        metout <- list(name = "ShiftShare", geoparent = geoparent, along = along, base = as.character(base))
     }
     if (metrics == "OP") {
-        metout <- list(name = "LegacyOpenings", startYear = substr(base,6,9), endYear = substr(name,6,9))
+        metout <- list(name = "LegacyOpenings", startYear = substr(as.character(base),6,9), endYear = substr(as.character(name),6,9))
     }
     return(metout)
 }
